@@ -1,0 +1,10 @@
+{
+    "rest-api":
+    {
+        "name": "mlu-sw",
+        "group": "Default",
+        "database": "mlu-sw-content",
+        "modules-database": "mlu-sw-modules",
+        "port": "5002"
+    }
+}

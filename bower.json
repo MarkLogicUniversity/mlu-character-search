@@ -1,0 +1,25 @@
+{
+  "name": "mlu-worldleaders",
+  "version": "0.0.0",
+  "authors": [
+    "Tamas Piros <me@tamas.io>"
+  ],
+  "main": "app.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.2.24",
+    "bootstrap": "~3.2.0"
+  }
+}

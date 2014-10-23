@@ -1,0 +1,23 @@
+doctype html
+html(lang='en', ng-app='starwars')
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='icon', href='favicon.ico')
+    link(href='public/css/bootstrap.cerulean.min.css', rel='stylesheet')
+    link(href='public/css/app.css', rel='stylesheet')
+  body
+    include ./navbar.jade
+    .container
+      div(ng-view='ng-view')
+      script(src='/vendor/jquery/dist/jquery.min.js')
+      script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
+      script(src='/vendor/angular/angular.min.js')
+      script(src='/vendor/angular-route/angular-route.min.js')
+      script(src='public/js/app.js')
+      script(src='public/js/controller.js')
+      script(src='public/js/service.js')
+      script(src='public/js/filter.js')

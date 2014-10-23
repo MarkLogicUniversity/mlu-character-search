@@ -1,0 +1,12 @@
+{
+        "id": 8,
+        "name": "Leia Organa",
+        "role": "Rebel Leader",
+        "species": "Human",
+        "gender": "Female",
+        "height": "1.50",
+        "weapon": "blaster pistol",
+        "homeworld": "Alderaan",
+        "alliance": "rebel",
+        "bio": "Separated from a mother she barely knew and a father she later counted among her worst enemies, Leia Organa is a princess who grew up enmeshed in the politics of her time. She accomplished much by a young age: a leader in the Rebel Alliance, a former member of the Imperial Senate, and a member of the Royal Family of Alderaan. She never desired the power that was thrust upon her, but so strong was her commitment to peace, freedom, and democracy that she was willing to accept the burdens and the risks that it took to accomplish her goals."
+    }

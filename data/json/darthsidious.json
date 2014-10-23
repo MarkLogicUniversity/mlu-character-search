@@ -1,0 +1,12 @@
+{
+        "id": 11,
+        "name": "Darth Sidious",
+        "role": "Sith Lord",
+        "species": "Human",
+        "gender": "male",
+        "height": "1.78",
+        "weapon": "lightsaber",
+        "homeworld": "Naboo",
+        "alliance": "empire",
+        "bio": "Darth Sidious is the name assumed by Palpatine when he became a Sith Lord. In time, the Sith identity became more real than Palpatine's public face. After the Clone Wars and his ascension to Emperor, Palpatine essentially lived as Sidious for the remainder of his life."
+    }

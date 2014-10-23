@@ -1,0 +1,36 @@
+.debug(ng-show='debug.state', class='scrollable')
+    pre {{ characters | limitTo:1 | json }}
+h1 Star Wars Characters
+p
+  | There are {{ characters.length }} characters in the database.
+  small Currenty viewing: {{ filtered.length }}
+.row
+  .col-sm-4.col-md-4
+    form.form-inline(role='form')
+      .form-group.right-inner-addon
+        input.form-control(type='text', ng-model='search[option]', placeholder='Search')
+        i.glyphicon.glyphicon-search
+      .form-group
+        select.form-control(ng-model='option', ng-options='choice | capitalise for choice in choices', ng-change='reset()')
+  .col-sm-4.col-md-4
+    p
+      a.btn.btn-primary(ng-click='order.sortedBy="name"; order.reverse=!order.reverse', role='button')
+        | Name
+        i.glyphicon(ng-class='order.reverse && order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
+      a.btn.btn-primary(ng-click='order.sortedBy="role"; order.reverse=!order.reverse', role='button')
+        | Role
+        i.glyphicon(ng-class='order.reverse && order.sortedBy === "role" ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
+  .col-sm-4.col-md-4.text-right
+    form.form-inline(role='form')
+      .form-group
+        select.form-control(ng-model='alliance', ng-options='alliance | capitalise for alliance in alliances')
+          option(value='') Select an alliance
+.row
+  .col-sm-6.col-md-4.character(ng-repeat='character in filtered = (characters | filter: search | filter: {alliance: alliance} | orderBy: order.sortedBy:order.reverse)')
+    .thumbnail
+      img(ng-src='data:image/png;base64,{{ character.image }}', alt='{{ character.name }}')
+      .caption
+        h3 {{ character.name }}
+        p Role: {{ character.role}}
+        p
+          a.btn.btn-primary(ng-href='#/characters/{{character.name | convert }}', role='button') More info

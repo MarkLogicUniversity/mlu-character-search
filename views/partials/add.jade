@@ -1,0 +1,17 @@
+.debug(ng-show='debug.state', class='scrollable')
+    pre {{ results | json }}
+h1 Add
+form(role='form', ng-submit='add()', name='addForm')
+    .form-group
+        label(for='firstname') Firstname
+        input#firstname.form-control(type='text', name='firstname', placeholder='Enter a firstname', ng-model='form.add.name.firstname')
+    .form-group
+        label(for='lastname') Lastname
+        input#lastname.form-control(type='text', name='lastname', placeholder='Enter a lastname', ng-model='form.add.name.lastname')
+     .form-group
+        label(for='country') Country
+        input#country.form-control(type='text', name='country', placeholder='Enter a country', ng-model='form.add.country')
+    .form-group
+        label(for='bio') Bio
+        textarea#bio.form-control(name='summary', placeholder='Enter a bio', ng-model='form.add.summary')
+    button.btn.btn-default(type='submit') Add Leader

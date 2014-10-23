@@ -1,0 +1,12 @@
+  {
+        "id": 7,
+        "name": "Luke Skywalker",
+        "role": "Jedi",
+        "species": "Human",
+        "gender": "Male",
+        "height": "1.72",
+        "weapon": "lightsaber",
+        "homeworld": "Tatooine",
+        "alliance": "rebel",
+        "bio": "Raised as a farmboy on the backwater desert world of Tatooine, Luke had no idea that he was the secret son of Anakin Skywalker, the Chosen One born to bring balance to the Force. After his stepparents were murdered by the Empire, he destroyed the Death Star and became the Rebellion's greatest hero. But Luke's true destiny lay with the Jedi Order. He learned the ways of the Force from Obi-Wan Kenobi and Yoda, and discovered the terrible secret of his parentage. Luke insisted there was still good in Darth Vader, and his love for his father reawakened Anakin's spirit, inspiring him to sacrifice himself to destroy Darth Sidious."
+    }

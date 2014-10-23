@@ -1,0 +1,27 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+.scrollable {
+    margin: 10px 0 10px 0;
+    overflow: scroll;
+    height: 200px;
+}
+.results {
+    margin-top: 15px;
+}
+.pointer {
+    cursor: pointer;
+    cursor: hand;
+}
+/*override standard boostrap thumbnail size*/
+.thumbnail>img {
+    height: 150px;
+}
+/*override standard boostrap panel options*/
+.panel {
+  margin-top: 21px;
+}
