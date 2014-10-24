@@ -13,7 +13,8 @@ var marklogic =require('./node-client-api/lib/marklogic.js'),
     connection = require('./settings').connection,
     _ = require('lodash'),
     db = marklogic.createDatabaseClient(connection),
-    q = marklogic.queryBuilder;
+    q = marklogic.queryBuilder,
+    fs = require('fs');
 
 var selectAll = function selectAll (callback) {
     db.documents.query(q.where(q.collection('character')).slice(1, 100)).result(function (documents) {
@@ -28,13 +29,17 @@ var selectOne = function selectOne (uri, callback) {
 };
 
 var search = function search (key, term, callback) {
+    var docs = [];
     if (key) {
         db.documents.query(
             q.where(
                 q.word(key, term)
             )
         ).result(function (documents) {
-            callback(documents);
+            documents.forEach(function (document) {
+                docs.push(document.content);
+            })
+            callback(docs);
         });
     } else {
         db.documents.query(
@@ -42,7 +47,10 @@ var search = function search (key, term, callback) {
                 q.term(term)
             )
         ).result(function (documents) {
-            callback(documents);
+            documents.forEach(function (document) {
+                docs.push(document.content);
+            })
+            callback(docs);
         });
     }
 };
@@ -52,11 +60,24 @@ var add = function add (document, callback) {
     db.write({
         uri: 'character/' + name + '.json',
         contentType: 'application/json',
-        content: document
+        content: document,
+        collections: 'character'
     }).result(function (response) {
         callback(document);
     });
 };
+
+var addImage = function addImage(image, callback) {
+    var uri = image.originalname;
+    db.write({
+        uri: 'image/' + uri,
+        contentType: 'image/png',
+        collections: 'image',
+        content: fs.readFileSync(image.path)
+    }).result(function (response) {
+        fs.unlinkSync(image.path);
+    });
+}
 
 var showImage = function showImage (uri, callback) {
     var imageData = [];
@@ -125,19 +146,20 @@ var apicharacter = function apicharacter (req, res) {
 var apisearch = function apisearch (req, res) {
     var key = req.params.key;
     var term = req.params.term;
-    var results = [];
-    var includeKeys = ['uri', 'content'];
     search(key, term, function (documents) {
-        documents.forEach(function (document) {
-            document = _.pick(document, includeKeys);
-            results.push(document);
-        });
-        res.json(results);
+        res.json(documents);
     });
 };
 
 var apiadd = function apiadd (req, res) {
+    console.log('req body', req.body);
     add(req.body, function (data) {
+        res.json(200);
+    });
+};
+
+var apiaddimage = function apiaddimage (req, res) {
+    addImage(req.files.file, function (data) {
         res.json(200);
     });
 };
@@ -166,6 +188,7 @@ module.exports = {
         character: apicharacter,
         search: apisearch,
         add: apiadd,
+        addimage: apiaddimage,
         imagedata: apiimage
     }
 };

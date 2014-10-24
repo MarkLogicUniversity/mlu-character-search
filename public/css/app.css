@@ -1,3 +1,9 @@
+/* hides all bindings {{ }} until AngularJS boostraps */
+[ng\:cloak],
+[ng-cloak],
+.ng-cloak {
+    display:none !important
+}
 body {
   padding-top: 50px;
 }
@@ -24,4 +30,7 @@ body {
 /*override standard boostrap panel options*/
 .panel {
   margin-top: 21px;
+}
+.spaced {
+    margin: 0 5px 0 5px;
 }

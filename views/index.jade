@@ -9,7 +9,7 @@ head
     link(rel='icon', href='favicon.ico')
     link(href='public/css/bootstrap.cerulean.min.css', rel='stylesheet')
     link(href='public/css/app.css', rel='stylesheet')
-  body
+  body.ng-cloak
     include ./navbar.jade
     .container
       div(ng-view='ng-view')
@@ -17,6 +17,8 @@ head
       script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
       script(src='/vendor/angular/angular.min.js')
       script(src='/vendor/angular-route/angular-route.min.js')
+      script(src='/vendor/ng-file-upload/angular-file-upload-shim.min.js')
+      script(src='/vendor/ng-file-upload/angular-file-upload.min.js')
       script(src='public/js/app.js')
       script(src='public/js/controller.js')
       script(src='public/js/service.js')

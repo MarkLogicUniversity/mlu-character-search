@@ -1,30 +1,3 @@
-# Installation #
-First please create an application in your MarkLogic server and insert some JSON data
-
-* Navigate to the desired installation location
-* Issue this command: 
-```
-#!bash
-git clone git@bitbucket.org:tamaspiros/mlu-worldleaders-ext.git
-```
-* Issue this command:
-```
-#!bash
-cd mlu-worldleaders/;npm install; cd node-client-api; npm install;cd ..
-```
-
-If you haven't got bower installed:
-#!bash
-npm install bower; bower install
-```
-
-And finally:
-
-#!bash
-node app.js
-```
-* Launch browser - http://localhost:8080
-
 # License #
 
 The MIT License (MIT)

@@ -31,7 +31,7 @@ app.controller('CharactersController', ['$scope', 'Debug', 'charactersHTTPPromis
         charactersHTTPPromise.data.forEach(function (character) {
             var imageURI = character.content.name.toLowerCase().replace(/[ -]/g, '')
             StarWarsService.displayImage(imageURI).success(function (imagedata) {
-               character.content.image = imagedata[0];
+                character.content.image = imagedata[0];
                 characters.push(character.content);
                 $scope.characters = characters;
             });
@@ -56,9 +56,10 @@ app.controller('CharacterController', ['$scope', '$routeParams', 'StarWarsServic
 
 app.controller('CharacterSearchController', ['$scope', '$routeParams', 'StarWarsService', 'Debug',
     function ($scope, $routeParams, StarWarsService, Debug) {
-        $scope.types = ['all', 'country', 'summary'];
+        $scope.types = ['all', 'homeworld', 'name'];
         $scope.type = 'all';
-        var key;
+        var key = '';
+        var characters = [];
         $scope.search = function () {
             if ($scope.type === 'all') {
                 key = '';
@@ -70,6 +71,7 @@ app.controller('CharacterSearchController', ['$scope', '$routeParams', 'StarWars
                     $scope.results = [];
                     $scope.noresults = 'No results found';
                 } else {
+                    characters.push(results.content);
                     $scope.results = results;
                     $scope.noresults = '';
                 }
@@ -79,12 +81,27 @@ app.controller('CharacterSearchController', ['$scope', '$routeParams', 'StarWars
     }
 ]);
 
-app.controller('AddController', ['$scope', '$location', 'StarWarsService',
-    function ($scope, $location, StarWarsService) {
+app.controller('AddController', ['$scope', '$location', 'StarWarsService', '$upload',
+    function ($scope, $location, StarWarsService, $upload) {
+        var file = '';
+        $scope.onFileSelect = function($files) {
+            for (var i = 0; i < $files.length; i++) {
+              file = $files[i];
+            }
+        };
+
         $scope.add = function () {
             var character = $scope.form.add;
             StarWarsService.add(character);
-        };
+            
+            $scope.upload = $upload.upload({
+                url: '/api/characters/image',
+                data: { myObj: $scope.myModelObj },
+                file: file
+            }).success(function(data, status, headers, config) {
+                $location.path('/characters');    
+            });
+        }
     }
 ]);
 

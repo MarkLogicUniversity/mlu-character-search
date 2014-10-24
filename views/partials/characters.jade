@@ -1,10 +1,15 @@
 .debug(ng-show='debug.state', class='scrollable')
     pre {{ characters | limitTo:1 | json }}
 h1 Star Wars Characters
-p
+
+p(ng-if='characters.length === 0') No characters in the database.
+  a.btn.btn-primary.spaced(href='#/characters/add', role='button') 
+    | Add 
+    i.glyphicon(class='glyphicon-plus')
+p(ng-if='characters.length > 0')
   | There are {{ characters.length }} characters in the database.
   small Currenty viewing: {{ filtered.length }}
-.row
+.row(ng-show='characters.length > 0')
   .col-sm-4.col-md-4
     form.form-inline(role='form')
       .form-group.right-inner-addon
@@ -14,11 +19,14 @@ p
         select.form-control(ng-model='option', ng-options='choice | capitalise for choice in choices', ng-change='reset()')
   .col-sm-4.col-md-4
     p
-      a.btn.btn-primary(ng-click='order.sortedBy="name"; order.reverse=!order.reverse', role='button')
-        | Name
-        i.glyphicon(ng-class='order.reverse && order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
-      a.btn.btn-primary(ng-click='order.sortedBy="role"; order.reverse=!order.reverse', role='button')
-        | Role
+      a.btn.btn-primary.spaced(href='#/characters/add', role='button') 
+        | Add 
+        i.glyphicon(class='glyphicon-plus') 
+      a.btn.btn-primary.spaced(ng-click='order.sortedBy="name"; order.reverse=!order.reverse', role='button') 
+        | Name 
+        i.glyphicon(ng-class='order.reverse && order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"') 
+      a.btn.btn-primary.spaced(ng-click='order.sortedBy="role"; order.reverse=!order.reverse', role='button') 
+        | Role 
         i.glyphicon(ng-class='order.reverse && order.sortedBy === "role" ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
   .col-sm-4.col-md-4.text-right
     form.form-inline(role='form')

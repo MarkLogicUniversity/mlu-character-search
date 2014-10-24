@@ -13,5 +13,5 @@ form(role='form', ng-submit='search()', name='searchForm')
 .results(ng-show='results')
     .row
         ul
-            li(ng-repeat='leader in results') {{ leader.content.name.firstname }} {{ leader.content.name.lastname }} | 
-                a(href='#/leaders/{{ leader.uri | urify }}') More info
+            li(ng-repeat='character in results') {{ character.name }} | 
+                a(href='#/characters/{{ character.name | convert }}') More info
