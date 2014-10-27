@@ -71,8 +71,8 @@ function insertBinary(path, uriPrefix, cb) {
 }
 
 // location of documents
-var jsonPath = '/Users/tamaspiros/Desktop/mlu-sw/json/image';
-var imagePath = '/Users/tamaspiros/Desktop/mlu-sw/json';
+var jsonPath = '/Users/tamaspiros/Desktop/mlu-sw/data/json';
+var imagePath = '/Users/tamaspiros/Desktop/mlu-sw/data/image';
 // URI prefix, no slashes please!
 var jsonURI = 'character';
 var imageURI = 'image'

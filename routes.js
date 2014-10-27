@@ -23,7 +23,7 @@ var selectAll = function selectAll (callback) {
 };
 
 var selectOne = function selectOne (uri, callback) {
-    db.read('character/' + uri + '.json').result().then(function (document) {
+    db.read('/character/' + uri + '.json').result().then(function (document) {
         callback(document[0].content);
     });
 };
@@ -58,7 +58,7 @@ var search = function search (key, term, callback) {
 var add = function add (document, callback) {
     var name = document.name.toLowerCase().replace(/[ -]/g, '');
     db.write({
-        uri: 'character/' + name + '.json',
+        uri: '/character/' + name + '.json',
         contentType: 'application/json',
         content: document,
         collections: 'character'
@@ -70,7 +70,7 @@ var add = function add (document, callback) {
 var addImage = function addImage(image, callback) {
     var uri = image.originalname;
     db.write({
-        uri: 'image/' + uri,
+        uri: '/image/' + uri,
         contentType: 'image/png',
         collections: 'image',
         content: fs.readFileSync(image.path)
@@ -81,7 +81,7 @@ var addImage = function addImage(image, callback) {
 
 var showImage = function showImage (uri, callback) {
     var imageData = [];
-    db.read('image/' + uri + '.png').result().then(function (data) {
+    db.read('/image/' + uri + '.png').result().then(function (data) {
         data.forEach(function (d) {
             imageData.push(new Buffer(d.content, 'binary').toString('base64'));
         });
