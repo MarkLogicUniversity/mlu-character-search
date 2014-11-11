@@ -1,5 +1,5 @@
 {
-  "name": "mlu-worldleaders",
+  "name": "mlu-sw",
   "version": "0.0.0",
   "authors": [
     "Tamas Piros <me@tamas.io>"
@@ -19,6 +19,7 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.2.26",
     "angular-route": "~1.2.24",
     "bootstrap": "~3.2.0",
     "ng-file-upload": "~1.6.12"
