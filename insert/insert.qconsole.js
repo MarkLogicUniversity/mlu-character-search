@@ -75,7 +75,7 @@ var jsonPath = '/Users/tamaspiros/Desktop/mlu-sw/data/json';
 var imagePath = '/Users/tamaspiros/Desktop/mlu-sw/data/image';
 // URI prefix, with *slashes* please
 var jsonURI = '/character';
-var imageURI = '/image'
+var imageURI = '/image';
 
 insertJSON(jsonPath, jsonURI, function(obj) {
   xdmp.documentLoad(obj.path,
