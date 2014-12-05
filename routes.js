@@ -9,21 +9,21 @@
  */
 'use strict';
 
-var marklogic =require('./node-client-api/lib/marklogic.js'),
+var marklogic =require('marklogic'),
     connection = require('./settings').connection,
     _ = require('lodash'),
     db = marklogic.createDatabaseClient(connection),
-    q = marklogic.queryBuilder,
+    qb = marklogic.queryBuilder,
     fs = require('fs');
 
 var selectAll = function selectAll (callback) {
-    db.documents.query(q.where(q.collection('character')).slice(1, 100)).result(function (documents) {
+    db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result(function (documents) {
         callback(documents);
     });
 };
 
 var selectOne = function selectOne (uri, callback) {
-    db.read('/character/' + uri + '.json').result().then(function (document) {
+    db.documents.read('/character/' + uri + '.json').result().then(function (document) {
         callback(document[0].content);
     });
 };
@@ -32,8 +32,8 @@ var search = function search (key, term, callback) {
     var docs = [];
     if (key) {
         db.documents.query(
-            q.where(
-                q.word(key, term)
+            qb.where(
+                qb.word(key, term)
             )
         ).result(function (documents) {
             documents.forEach(function (document) {
@@ -43,8 +43,8 @@ var search = function search (key, term, callback) {
         });
     } else {
         db.documents.query(
-            q.where(
-                q.term(term)
+            qb.where(
+                qb.term(term)
             )
         ).result(function (documents) {
             documents.forEach(function (document) {
@@ -81,7 +81,7 @@ var addImage = function addImage(image, callback) {
 
 var showImage = function showImage (uri, callback) {
     var imageData = [];
-    db.read('/image/' + uri + '.png').result().then(function (data) {
+    db.documents.read('/image/' + uri + '.png').result().then(function (data) {
         data.forEach(function (d) {
             imageData.push(new Buffer(d.content, 'binary').toString('base64'));
         });
@@ -140,7 +140,7 @@ var apicharacter = function apicharacter (req, res) {
     selectOne(uri, function (document) {
         res.json(document);
     });
-    
+
 };
 
 var apisearch = function apisearch (req, res) {
