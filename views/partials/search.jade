@@ -1,6 +1,6 @@
 .debug(ng-show='vm.debug.state', class='scrollable')
     pre {{ vm.results | json }}
-h1 Search
+h1 Search {{ vm.results.length }} {{ searchForm.searchterm.$dirty }} {{ searchForm.$submitted }}
 form(role='form', ng-submit='vm.search()', name='searchForm')
     .form-group
         label(for='searchterm') Search
@@ -9,9 +9,9 @@ form(role='form', ng-submit='vm.search()', name='searchForm')
         label(for='type') Type
         select#type.form-control(ng-model='vm.type', ng-options='type for type in vm.types')
     button.btn.btn-default(type='submit') Search
-.results(ng-hide='vm.results.length !== 0')
+.results(ng-show='vm.results.length === 0 && searchForm.searchterm.$dirty && searchForm.$submitted')
   p No results
-.results(ng-show='vm.results')
+.results(ng-show='vm.results.length !== 0 && searchForm.$submitted')
   p {{ vm.results.length }} matches
   .row
     ul

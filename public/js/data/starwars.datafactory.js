@@ -37,16 +37,21 @@
       }
 
       function search(key, term) {
+        console.log(key);
+        console.log(term);
         if (key) {
+          console.log('in if', key)
           return $http
             .get('/api/search/characters/' + key + '/' + term)
             .then(complete)
             .catch(failed);
         } else {
-          return $http
-            .get('/api/search/characters/' + term)
-            .then(complete)
-            .catch(failed);
+          if (term) {
+            return $http
+              .get('/api/search/characters/' + term)
+              .then(complete)
+              .catch(failed);
+          }
         }
       }
 

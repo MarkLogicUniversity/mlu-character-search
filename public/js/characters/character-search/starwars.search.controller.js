@@ -20,13 +20,13 @@
       } else {
         key = vm.type;
       }
-
-      datafactory.search(key, vm.searchterm)
-        .then(function(results) {
-          vm.results.push(results.content);
-          vm.results = results;
-        });
-
+      if (vm.searchterm) {
+        datafactory.search(key, vm.searchterm)
+          .then(function(results) {
+            vm.results.push(results.content);
+            vm.results = results;
+          });
+      }
       vm.debug = debugfactory;
     }
 
