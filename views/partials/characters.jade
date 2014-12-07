@@ -1,40 +1,40 @@
-.debug(ng-show='debug.state', class='scrollable')
-    pre {{ characters | limitTo:1 | json }}
+.debug(ng-show='vm.debug.state', class='scrollable')
+    pre {{ vm.characters | limitTo:1 | json }}
 h1 Star Wars Characters
 
-p(ng-if='characters.length === 0') No characters in the database.
+p(ng-if='vm.characters.length === 0') No characters in the database.
   a.btn.btn-primary.spaced(href='#/characters/add', role='button') 
     | Add 
     i.glyphicon(class='glyphicon-plus')
-p(ng-if='characters.length > 0')
-  | There are {{ characters.length }} characters in the database.
+p(ng-if='vm.characters.length > 0')
+  | There are {{ vm.characters.length }} characters in the database.
   small Currenty viewing: {{ filtered.length }}
-.row(ng-show='characters.length > 0')
+.row(ng-show='vm.characters.length > 0')
   .col-sm-4.col-md-4
     form.form-inline(role='form')
       .form-group.right-inner-addon
-        input.form-control(type='text', ng-model='search[option]', placeholder='Search')
+        input.form-control(type='text', ng-model='vm.search[vm.option]', placeholder='Search')
         i.glyphicon.glyphicon-search
       .form-group
-        select.form-control(ng-model='option', ng-options='choice | capitalise for choice in choices', ng-change='reset()')
+        select.form-control(ng-model='vm.option', ng-options='choice for choice in vm.choices', ng-change='reset()')
   .col-sm-4.col-md-4
     p
       a.btn.btn-primary.spaced(href='#/characters/add', role='button') 
         | Add 
         i.glyphicon(class='glyphicon-plus') 
-      a.btn.btn-primary.spaced(ng-click='order.sortedBy="name"; order.reverse=!order.reverse', role='button') 
+      a.btn.btn-primary.spaced(ng-click='vm.order.sortedBy="name"; vm.order.reverse=!vm.order.reverse', role='button') 
         | Name 
-        i.glyphicon(ng-class='order.reverse && order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"') 
-      a.btn.btn-primary.spaced(ng-click='order.sortedBy="role"; order.reverse=!order.reverse', role='button') 
+        i.glyphicon(ng-class='vm.order.reverse && vm.order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"') 
+      a.btn.btn-primary.spaced(ng-click='vm.order.sortedBy="role"; vm.order.reverse=!vm.order.reverse', role='button') 
         | Role 
-        i.glyphicon(ng-class='order.reverse && order.sortedBy === "role" ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
+        i.glyphicon(ng-class='vm.order.reverse && vm.order.sortedBy === "role" ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
   .col-sm-4.col-md-4.text-right
     form.form-inline(role='form')
       .form-group
-        select.form-control(ng-model='alliance', ng-options='alliance | capitalise for alliance in alliances')
+        select.form-control(ng-model='vm.alliance', ng-options='alliance for alliance in vm.alliances')
           option(value='') Select an alliance
 .row
-  .col-sm-6.col-md-4.character(ng-repeat='character in filtered = (characters | filter: search | filter: {alliance: alliance} | orderBy: order.sortedBy:order.reverse)')
+  .col-sm-6.col-md-4.character(ng-repeat='character in filtered = (vm.characters | filter: vm.search | filter: {alliance: vm.alliance} | orderBy: vm.order.sortedBy:vm.order.reverse)')
     .thumbnail
       img(ng-src='data:image/png;base64,{{ character.image }}', alt='{{ character.name }}')
       .caption

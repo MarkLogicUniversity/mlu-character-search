@@ -1,34 +1,40 @@
-/**
- * This is our main AngularJS file which also defines the routes for our SPA.
- */
-'use strict';
-var app = angular.module('starwars', ['ngRoute', 'starwars.service', 'starwars.controller', 'starwars.filter', 'angularFileUpload']);
+(function() {
+  'use strict';
+  angular
+    .module('starwars', [
+      'ngRoute',
+      'angularFileUpload'
+    ])
+    .config(config);
 
-app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-        .when('/', {
-            templateUrl: 'partials/main'
-        })
-        .when('/characters', {
-            templateUrl: 'partials/characters',
-            controller: 'CharactersController',
-            resolve: {
-                charactersHTTPPromise: function(StarWarsService) {
-                    return StarWarsService.all();
-                }
-            }
-        })
-        .when('/characters/add', {
-            templateUrl: 'partials/add',
-            controller: 'AddController'
-        })
-        .when('/characters/:name', {
-            templateUrl: 'partials/character',
-            controller: 'CharacterController'
-        })
-        .when('/search', {
-            templateUrl: 'partials/search',
-            controller: 'CharacterSearchController'
-        })
-        .otherwise({redirectTo: '/'});
-}]);
+    //routing configuration
+    function config($routeProvider) {
+      $routeProvider
+      .when('/', {
+        templateUrl: 'partials/main'
+      })
+      .when('/characters', {
+        templateUrl: 'partials/characters',
+        controller: 'Characters',
+        controllerAs: 'vm'
+      })
+      .when('/characters/add', {
+        templateUrl: 'partials/add',
+        controller: 'Add',
+        controllerAs: 'vm'
+      })
+      .when('/characters/:name', {
+        templateUrl: 'partials/character',
+        controller: 'Character',
+        controllerAs: 'vm'
+      })
+      .when('/search', {
+        templateUrl: 'partials/search',
+        controller: 'Search',
+        controllerAs: 'vm'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+    }
+})();

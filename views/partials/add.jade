@@ -1,5 +1,5 @@
-.debug(ng-show='debug.state', class='scrollable')
-    pre {{ results | json }}
+.debug(ng-show='vm.debug.state', class='scrollable')
+    pre {{ vm.results | json }}
 h1 Star Wars Character
 .row
   .col-sm-8.col-md-8
@@ -8,39 +8,39 @@ h1 Star Wars Character
         h3.panel-title Add a new character
       .panel-body
         div
-          form(role='form', ng-submit='add()', name='form', enctype='multipart/form-data')
+          form(role='form', ng-submit='vm.add()', name='form', enctype='multipart/form-data')
             .form-group
               label(for='title') Name
-              input#name.form-control(type='text', name='name', placeholder='Enter name', ng-model='form.add.name', ng-minlength='2')
+              input#name.form-control(type='text', name='name', placeholder='Enter name', ng-model='vm.form.add.name', ng-minlength='2')
             .form-group
               label(for='author') Bio
-              textarea#bio.form-control(name='bio', placeholder='Enter bio', ng-model='form.add.bio')
+              textarea#bio.form-control(name='bio', placeholder='Enter bio', ng-model='vm.form.add.bio')
             .form-group
               label(for='height') Height
-              input#height.form-control(type='text', name='height', placeholder='Enter height', ng-model='form.add.height', ng-minlength='2')
+              input#height.form-control(type='text', name='height', placeholder='Enter height', ng-model='vm.form.add.height', ng-minlength='2')
             .form-group
               label(for='homeworld') Homeworld
-              input#homeworld.form-control(type='text', name='homeworld', placeholder='Enter homeworld', ng-model='form.add.homeworld', ng-minlength='2')
+              input#homeworld.form-control(type='text', name='homeworld', placeholder='Enter homeworld', ng-model='vm.form.add.homeworld', ng-minlength='2')
             .form-group
               label(for='role') Role
-              input#role.form-control(type='text', name='role', placeholder='Enter role', ng-model='form.add.role', ng-minlength='2')
+              input#role.form-control(type='text', name='role', placeholder='Enter role', ng-model='vm.form.add.role', ng-minlength='2')
             .form-group
               label(for='species') Species
-              input#species.form-control(type='text', name='species', placeholder='Enter species', ng-model='form.add.species', ng-minlength='2')
+              input#species.form-control(type='text', name='species', placeholder='Enter species', ng-model='vm.form.add.species', ng-minlength='2')
             .form-group
               label(for='weapon') Weapon
-              input#weapon.form-control(type='text', name='weapon', placeholder='Enter weapon', ng-model='form.add.weapon', ng-minlength='2')
+              input#weapon.form-control(type='text', name='weapon', placeholder='Enter weapon', ng-model='vm.form.add.weapon', ng-minlength='2')
             .form-group
               label(for='gender') Gender
-              select#gender.form-control(ng-model='form.add.gender')
+              select#gender.form-control(ng-model='vm.form.add.gender')
                 option(value='female') female
                 option(value='male') male
             .form-group
               label(for='alliance') Alliance
-              select#alliance.form-control(ng-model='form.add.alliance')
+              select#alliance.form-control(ng-model='vm.form.add.alliance')
                 option(value='empire') Empire
                 option(value='rebel') Rebel
             .form-group
               label(for='image') Image
-              input#image.form-control(type='file', ng-file-select='onFileSelect($files)', accept='image/png')
+              input#image.form-control(type='file', ng-file-select='vm.onFileSelect($files)', accept='image/png')
             button.btn.btn-default(type='submit') Add

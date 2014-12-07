@@ -1,17 +1,19 @@
-.debug(ng-show='debug.state', class='scrollable')
-    pre {{ results | json }}
+.debug(ng-show='vm.debug.state', class='scrollable')
+    pre {{ vm.results | json }}
 h1 Search
-form(role='form', ng-submit='search()', name='searchForm')
+form(role='form', ng-submit='vm.search()', name='searchForm')
     .form-group
         label(for='searchterm') Search
-        input#searchterm.form-control(type='text', name='searchterm', placeholder='Enter search term', ng-model='searchterm')
+        input#searchterm.form-control(type='text', name='searchterm', placeholder='Enter search term', ng-model='vm.searchterm')
      .form-group
         label(for='type') Type
-        select#type.form-control(ng-model='type', ng-options='type for type in types')
+        select#type.form-control(ng-model='vm.type', ng-options='type for type in vm.types')
     button.btn.btn-default(type='submit') Search
-.results(ng-show='noresults') {{ noresults }}
-.results(ng-show='results')
-    .row
-        ul
-            li(ng-repeat='character in results') {{ character.name }} | 
-                a(href='#/characters/{{ character.name | convert }}') More info
+.results(ng-hide='vm.results.length !== 0')
+  p No results
+.results(ng-show='vm.results')
+  p {{ vm.results.length }} matches
+  .row
+    ul
+      li(ng-repeat='character in vm.results') {{ character.name }} | 
+        a(href='#/characters/{{ character.name | convert }}') More info

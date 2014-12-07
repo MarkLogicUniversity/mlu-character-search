@@ -1,23 +1,23 @@
-.debug(ng-show='debug.state', class='scrollable')
-    pre {{ character | json }}
+.debug(ng-show='vm.debug.state', class='scrollable')
+    pre {{ vm.character | json }}
 .row
   .panel.panel-default
     .panel-heading
-      h3.panel-title {{ character.name }}
-    .panel-body.col-sm-5.col-md-6 {{ character.bio }}
+      h3.panel-title {{ vm.character.name }}
+    .panel-body.col-sm-5.col-md-6 {{ vm.character.bio }}
     .panel-body.col-sm-3.col-md-2
       ul.list-unstyled
         li
           strong Homeworld: 
-          | {{ character.homeworld }}
+          | {{ vm.character.homeworld }}
         li
           strong Weapon: 
-          | {{ character.weapon }}
+          | {{ vm.character.weapon }}
         li
           strong Species: 
-          | {{ character.species }}
+          | {{ vm.character.species }}
         li
           strong Height: 
-          | {{ character.height }}
+          | {{ vm.character.height }}
     .panel-body.col-sm-3.col-md-2.text-center
-      img(ng-src='data:image/png;base64,{{ character.image }}', alt='{{ character.name }}')
+      img(ng-src='data:image/png;base64,{{ vm.character.image }}', alt='{{ vm.character.name }}')

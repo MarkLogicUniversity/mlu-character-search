@@ -9,34 +9,35 @@
  */
 'use strict';
 
-var marklogic =require('marklogic'),
-    connection = require('./settings').connection,
-    _ = require('lodash'),
-    db = marklogic.createDatabaseClient(connection),
-    qb = marklogic.queryBuilder,
-    fs = require('fs');
+var marklogic  = require('marklogic');
+var connection = require('./settings').connection;
+var _          = require('lodash');
+var db         = marklogic.createDatabaseClient(connection);
+var qb         = marklogic.queryBuilder;
+var fs         = require('fs');
 
-var selectAll = function selectAll (callback) {
-    db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result(function (documents) {
+var selectAll = function selectAll(callback) {
+    db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result(function(documents) {
         callback(documents);
     });
 };
 
-var selectOne = function selectOne (uri, callback) {
-    db.documents.read('/character/' + uri + '.json').result().then(function (document) {
+var selectOne = function selectOne(uri, callback) {
+    db.documents.read('/character/' + uri + '.json').result().then(function(document) {
         callback(document[0].content);
     });
 };
 
-var search = function search (key, term, callback) {
+var search = function search(key, term, callback) {
+
     var docs = [];
     if (key) {
         db.documents.query(
             qb.where(
                 qb.word(key, term)
             )
-        ).result(function (documents) {
-            documents.forEach(function (document) {
+        ).result(function(documents) {
+            documents.forEach(function(document) {
                 docs.push(document.content);
             })
             callback(docs);
@@ -46,8 +47,8 @@ var search = function search (key, term, callback) {
             qb.where(
                 qb.term(term)
             )
-        ).result(function (documents) {
-            documents.forEach(function (document) {
+        ).result(function(documents) {
+            documents.forEach(function(document) {
                 docs.push(document.content);
             })
             callback(docs);
@@ -55,34 +56,34 @@ var search = function search (key, term, callback) {
     }
 };
 
-var add = function add (document, callback) {
+var add = function add(document, callback) {
     var name = document.name.toLowerCase().replace(/[ -]/g, '');
-    db.write({
+    db.documents.write({
         uri: '/character/' + name + '.json',
         contentType: 'application/json',
         content: document,
         collections: 'character'
-    }).result(function (response) {
+    }).result(function(response) {
         callback(document);
     });
 };
 
 var addImage = function addImage(image, callback) {
     var uri = image.originalname;
-    db.write({
+    db.documents.write({
         uri: '/image/' + uri,
         contentType: 'image/png',
         collections: 'image',
         content: fs.readFileSync(image.path)
-    }).result(function (response) {
+    }).result(function(response) {
         fs.unlinkSync(image.path);
     });
 }
 
-var showImage = function showImage (uri, callback) {
+var showImage = function showImage(uri, callback) {
     var imageData = [];
-    db.documents.read('/image/' + uri + '.png').result().then(function (data) {
-        data.forEach(function (d) {
+    db.documents.read('/image/' + uri + '.png').result().then(function(data) {
+        data.forEach(function(d) {
             imageData.push(new Buffer(d.content, 'binary').toString('base64'));
         });
         callback(imageData);
@@ -98,17 +99,6 @@ var appindex = function appindex(req, res) {
     res.render('index');
 };
 
-var appcharacters = function appcharacters(req, res) {
-    res.render('characters');
-};
-
-var appsearch = function appcharacters(req, res) {
-    res.render('search');
-};
-
-var appadd = function appadd(req, res) {
-    res.render('add');
-};
 
 /**
  * Displaying partials (template files)
@@ -126,8 +116,8 @@ var partials = function partials(req, res) {
 var apicharacters = function apiindex(req, res) {
     var docs = [];
     var includeKeys = ['uri', 'content'];
-    selectAll(function (documents) {
-        documents.forEach(function (document) {
+    selectAll(function(documents) {
+        documents.forEach(function(document) {
             document = _.pick(document, includeKeys);
             docs.push(document);
         });
@@ -135,31 +125,31 @@ var apicharacters = function apiindex(req, res) {
     });
 };
 
-var apicharacter = function apicharacter (req, res) {
+var apicharacter = function apicharacter(req, res) {
     var uri = req.params.name;
-    selectOne(uri, function (document) {
+    selectOne(uri, function(document) {
         res.json(document);
     });
 
 };
 
-var apisearch = function apisearch (req, res) {
+var apisearch = function apisearch(req, res) {
     var key = req.params.key;
     var term = req.params.term;
-    search(key, term, function (documents) {
+    search(key, term, function(documents) {
         res.json(documents);
     });
 };
 
-var apiadd = function apiadd (req, res) {
+var apiadd = function apiadd(req, res) {
     console.log('req body', req.body);
-    add(req.body, function (data) {
+    add(req.body, function(data) {
         res.json(200);
     });
 };
 
-var apiaddimage = function apiaddimage (req, res) {
-    addImage(req.files.file, function (data) {
+var apiaddimage = function apiaddimage(req, res) {
+    addImage(req.files.file, function(data) {
         res.json(200);
     });
 };
@@ -167,7 +157,7 @@ var apiaddimage = function apiaddimage (req, res) {
 var apiimage = function(req, res) {
     var id = req.params.id;
     var doc = [];
-    showImage(id, function (imageData) {
+    showImage(id, function(imageData) {
         res.json(imageData);
     });
 };
@@ -178,9 +168,6 @@ var apiimage = function(req, res) {
 module.exports = {
     app: {
         index: appindex,
-        characters: appcharacters,
-        search: appsearch,
-        add: appadd,
         partials: partials
     },
     api: {

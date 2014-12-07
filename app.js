@@ -15,7 +15,6 @@ var express = require('express'),
     apiroutes = require('./routes').api;
 
 app.set('port', 8080);
-app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 /**
  * these directory configurations are needed, with these we are
@@ -37,22 +36,20 @@ if (app.get('env') === 'development') {
 
 /**
  * Route configuration
- * We are taking 
  */
 router.route('/').get(routes.index);
-router.route('/characters').get(routes.characters);
-router.route('/characters/add').get(routes.add);
-router.route('/search').get(routes.search);
 router.route('/api/characters').get(apiroutes.characters);
 router.route('/api/characters').post(apiroutes.add);
 router.route('/api/characters/image').post(apiroutes.addimage);
-router.route('/api/characters/search/:term').get(apiroutes.search);
-router.route('/api/characters/search/:key/:term').get(apiroutes.search);
+router.route('/api/search/characters/:term').get(apiroutes.search);
+router.route('/api/search/characters/:key/:term').get(apiroutes.search);
+router.route('/api/images/characters/:id').get(apiroutes.imagedata);
 router.route('/api/characters/:name').get(apiroutes.character);
-router.route('/api/characters/image/:id').get(apiroutes.imagedata)
 
 //route declaration for the partials
 router.route('/partials/:name').get(routes.partials);
+
+//apply routes
 app.use('/', router);
 
 app.listen(app.get('port'));
