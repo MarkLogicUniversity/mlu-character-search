@@ -142,7 +142,6 @@ var apisearch = function apisearch(req, res) {
 };
 
 var apiadd = function apiadd(req, res) {
-    console.log('req body', req.body);
     add(req.body, function(data) {
         res.json(200);
     });
