@@ -1,6 +1,6 @@
 .debug(ng-show='vm.debug.state', class='scrollable')
     pre {{ vm.results | json }}
-h1 Search {{ vm.results.length }} {{ searchForm.searchterm.$dirty }} {{ searchForm.$submitted }}
+h1 Search
 form(role='form', ng-submit='vm.search()', name='searchForm')
     .form-group
         label(for='searchterm') Search
