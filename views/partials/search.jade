@@ -13,5 +13,5 @@ form(role='form', ng-submit='vm.search()', name='searchForm')
   p {{ vm.results.length }} matches
   .row
     ul
-      li(ng-repeat='character in vm.results') {{ character.name }} | 
-        a(href='#/characters/{{ character.name | convert }}') More info
+      li(ng-repeat='character in vm.results') {{ character.content.name }} | 
+        a(href='#/characters/{{ character.content.name | convert }}') More info

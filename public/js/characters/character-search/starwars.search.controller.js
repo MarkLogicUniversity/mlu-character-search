@@ -23,7 +23,6 @@
       if (vm.searchterm) {
         datafactory.search(key, vm.searchterm)
           .then(function(results) {
-            vm.results.push(results.content);
             vm.results = results;
           });
       }
