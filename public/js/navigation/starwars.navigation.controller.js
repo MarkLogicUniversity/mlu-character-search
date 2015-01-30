@@ -4,14 +4,10 @@
     .module('starwars')
     .controller('NavigationController', NavigationController);
 
-    NavigationController.$inject = ['$location', 'debugfactory'];
+    NavigationController.$inject = ['$location'];
 
-    function NavigationController($location, debugfactory) {
+    function NavigationController($location) {
       var vm = this;
-      vm.debug = debugfactory;
-      vm.toggleDebug = function(debug) {
-        debugfactory.toggleDebug(debug);
-      }
       vm.isActive = function(url) {
         var path = $location.path().substring(1);
         var index = path.indexOf('/');

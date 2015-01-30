@@ -4,9 +4,9 @@
   .module('starwars')
   .controller('Search', Search);
 
-  Search.$inject = ['$routeParams', 'datafactory', 'debugfactory'];
+  Search.$inject = ['$routeParams', 'datafactory'];
 
-  function Search($routeParams, datafactory, debugfactory) {
+  function Search($routeParams, datafactory) {
     var vm   = this;
     var name = $routeParams.name;
     var key  = '';
@@ -27,9 +27,6 @@
             vm.results = results;
           });
       }
-      vm.debug = debugfactory;
     }
-
-    vm.debug = debugfactory;
   }
 })();

@@ -4,9 +4,9 @@
   .module('starwars')
   .controller('Add', Add);
 
-  Add.$inject = ['$location', '$routeParams', 'datafactory', 'debugfactory', '$upload'];
+  Add.$inject = ['$location', '$routeParams', 'datafactory', '$upload'];
 
-  function Add($location, $routeParams, datafactory, debugfactory, $upload) {
+  function Add($location, $routeParams, datafactory, $upload) {
     var vm = this;
     var file = '';
 
@@ -28,8 +28,6 @@
         $location.path('/characters');
       });
     };
-
-    vm.debug = debugfactory;
   }
 
 

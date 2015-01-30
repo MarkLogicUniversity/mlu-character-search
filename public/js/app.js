@@ -32,7 +32,15 @@
       .when('/characters/:name', {
         templateUrl: 'partials/character',
         controller: 'Character',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          character: function(datafactory, $route) {
+            return datafactory.getOneCharacter($route.current.params.name);
+          },
+          image: function(datafactory, $route) {
+            return datafactory.displayImage($route.current.params.name);
+          }
+        }
       })
       .when('/search', {
         templateUrl: 'partials/search',

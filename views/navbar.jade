@@ -15,7 +15,3 @@
           a(href='#/characters') Characters
         li(ng-class='vm.isActive("search")')
           a(href='#/search') Search
-      ul.nav.navbar-nav.navbar-right
-        li
-          a.btn.btn-success(role='button', ng-click='vm.toggleDebug(vm.debug)', ng-show='!vm.debug.state') {{ vm.debug.text }}
-          a.btn.btn-danger(role='button', ng-click='vm.toggleDebug(vm.debug)', ng-show='vm.debug.state') {{ vm.debug.text }}

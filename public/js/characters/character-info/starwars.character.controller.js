@@ -4,22 +4,13 @@
   .module('starwars')
   .controller('Character', Character);
 
-  Character.$inject = ['$routeParams', 'datafactory', 'debugfactory'];
+  Character.$inject = ['$routeParams', 'character', 'image'];
 
-  function Character($routeParams, datafactory, debugfactory) {
+  function Character($routeParams, character, image) {
     var vm = this;
     var name = $routeParams.name;
     vm.character = [];
-
-    datafactory.getOneCharacter(name)
-      .then(function(data) {
-        datafactory.displayImage(name)
-          .then(function(imagedata) {
-              data.image = imagedata[0];
-              vm.character = data;
-          });
-    });
-
-    vm.debug = debugfactory;
+    vm.character = character[0].content;
+    vm.character.image = image;
   }
 })();
