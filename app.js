@@ -5,14 +5,14 @@
 'use strict';
 process.env.NODE_ENV = 'development';
 
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    multer  = require('multer'),
-    app = express(),
-    router = express.Router(),
-    routes = require('./routes').app,
-    apiroutes = require('./routes').api;
+var express        = require('express');
+var bodyParser     = require('body-parser');
+var methodOverride = require('method-override');
+var multer         = require('multer');
+var app            = express();
+var router         = express.Router();
+var routes         = require('./routes').app;
+var apiroutes      = require('./routes').api;
 
 app.set('port', 8080);
 app.set('view engine', 'jade');

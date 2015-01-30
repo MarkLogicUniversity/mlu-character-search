@@ -37,10 +37,7 @@
       }
 
       function search(key, term) {
-        console.log(key);
-        console.log(term);
         if (key) {
-          console.log('in if', key)
           return $http
             .get('/api/search/characters/' + key + '/' + term)
             .then(complete)

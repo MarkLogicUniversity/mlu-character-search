@@ -15,79 +15,54 @@ var _          = require('lodash');
 var db         = marklogic.createDatabaseClient(connection);
 var qb         = marklogic.queryBuilder;
 var fs         = require('fs');
+var q = require('q');
 
-var selectAll = function selectAll(callback) {
-    db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result(function(documents) {
-        callback(documents);
-    });
+var selectAll = function selectAll() {
+  return db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result();
 };
 
-var selectOne = function selectOne(uri, callback) {
-    db.documents.read('/character/' + uri + '.json').result().then(function(document) {
-        callback(document[0].content);
-    });
+var selectOne = function selectOne(uri) {
+  return db.documents.read('/character/' + uri + '.json').result()
 };
 
 var search = function search(key, term, callback) {
-
-    var docs = [];
-    if (key) {
-        db.documents.query(
-            qb.where(
-                qb.word(key, term)
-            )
-        ).result(function(documents) {
-            documents.forEach(function(document) {
-                docs.push(document.content);
-            })
-            callback(docs);
-        });
-    } else {
-        db.documents.query(
-            qb.where(
-                qb.term(term)
-            )
-        ).result(function(documents) {
-            documents.forEach(function(document) {
-                docs.push(document.content);
-            })
-            callback(docs);
-        });
-    }
+  if (key) {
+    return db.documents.query(
+        qb.where(
+            qb.word(key, term)
+        )
+    ).result();
+  } else {
+      return db.documents.query(
+          qb.where(
+              qb.term(term)
+          )
+      ).result();
+  }
 };
 
-var add = function add(document, callback) {
+var add = function add(document) {
     var name = document.name.toLowerCase().replace(/[ -]/g, '');
-    db.documents.write({
+    return db.documents.write({
         uri: '/character/' + name + '.json',
         contentType: 'application/json',
         content: document,
         collections: 'character'
-    }).result(function(response) {
-        callback(document);
-    });
+    }).result();
 };
 
 var addImage = function addImage(image, callback) {
     var uri = image.originalname;
-    db.documents.write({
+    return db.documents.write({
         uri: '/image/' + uri,
         contentType: 'image/png',
         collections: 'image',
         content: fs.readFileSync(image.path)
-    }).result(function(response) {
-        fs.unlinkSync(image.path);
-    });
+    }).result();
 }
 
-var showImage = function showImage(uri, callback) {
-    var imageData = [];
-    db.documents.read('/image/' + uri + '.png').result().then(function(data) {
-        data.forEach(function(d) {
-            imageData.push(new Buffer(d.content, 'binary').toString('base64'));
-        });
-        callback(imageData);
-    });
+var showImage = function showImage(uri) {
+    return db.documents.read('/image/' + uri + '.png').result();
 }
 
 /**
@@ -114,50 +89,45 @@ var partials = function partials(req, res) {
  * all api related routes have the 'api' prefix
  */
 var apicharacters = function apiindex(req, res) {
-    var docs = [];
-    var includeKeys = ['uri', 'content'];
-    selectAll(function(documents) {
-        documents.forEach(function(document) {
-            document = _.pick(document, includeKeys);
-            docs.push(document);
-        });
-        res.json(docs);
-    });
+  selectAll()
+  .then(function(data) {
+    res.json(data);
+  });
 };
 
 var apicharacter = function apicharacter(req, res) {
     var uri = req.params.name;
-    selectOne(uri, function(document) {
-        res.json(document);
+    selectOne(uri).then(function(document) {
+      res.json(document);
     });
-
 };
 
 var apisearch = function apisearch(req, res) {
     var key = req.params.key;
     var term = req.params.term;
-    search(key, term, function(documents) {
+    search(key, term).then(function(documents) {
         res.json(documents);
     });
 };
 
 var apiadd = function apiadd(req, res) {
-    add(req.body, function(data) {
+    add(req.body).then(function(data) {
         res.json(200);
     });
 };
 
 var apiaddimage = function apiaddimage(req, res) {
-    addImage(req.files.file, function(data) {
+    addImage(req.files.file).then(function(data) {
+      console.log(data);
+      //fs.unlinkSync(image.path);
         res.json(200);
     });
 };
 
 var apiimage = function(req, res) {
     var id = req.params.id;
-    var doc = [];
-    showImage(id, function(imageData) {
-        res.json(imageData);
+    showImage(id).then(function(imageData) {
+      res.json(new Buffer(imageData[0].content, 'binary').toString('base64'));
     });
 };
 

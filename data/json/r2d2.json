@@ -8,5 +8,6 @@
         "weapon":"Electro-shock prod",
         "homeworld": "Naboo",
         "alliance": "rebel",
-        "bio": "A resourceful astromech droid, R2-D2 served Padmé Amidala, Anakin Skywalker and Luke Skywalker in turn, showing great bravery in rescuing his masters and their friends from many perils. A skilled starship mechanic and fighter pilot's assistant, he formed an unlikely but enduring friendship with the fussy protocol droid C-3PO.  R2-D2's mechanical body contains numerous arms tipped with all manner of useful tools, from welding torches to computer interfaces. Like other astromechs, his language is a cacophony of beeps and whistles understandable only by some other droids. But the spunky little droid's abundant personality generally makes his meaning plain enough."
+        "bio": "A resourceful astromech droid, R2-D2 served Padmé Amidala, Anakin Skywalker and Luke Skywalker in turn, showing great bravery in rescuing his masters and their friends from many perils. A skilled starship mechanic and fighter pilot's assistant, he formed an unlikely but enduring friendship with the fussy protocol droid C-3PO.  R2-D2's mechanical body contains numerous arms tipped with all manner of useful tools, from welding torches to computer interfaces. Like other astromechs, his language is a cacophony of beeps and whistles understandable only by some other droids. But the spunky little droid's abundant personality generally makes his meaning plain enough.",
+        "binary": "/image/r2d2.png"
 }

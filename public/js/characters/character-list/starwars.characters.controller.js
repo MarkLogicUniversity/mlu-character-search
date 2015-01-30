@@ -4,9 +4,9 @@
     .module('starwars')
     .controller('Characters', Characters);
 
-    Characters.$inject = ['datafactory', 'debugfactory'];
+    Characters.$inject = ['datafactory', 'debugfactory', 'characters'];
 
-    function Characters(datafactory, debugfactory) {
+    function Characters(datafactory, debugfactory, characters) {
       var vm = this;
       vm.search = [];
       vm.characters = [];
@@ -23,17 +23,14 @@
         vm.search = [];
       }
       // remember that data does not contain the image information
-      datafactory.getAllCharacters()
-      .then(function(data) {
-        data.forEach(function(document) {
+        characters.forEach(function(document) {
           var imageURL = document.content.name.toLowerCase().replace(/[ -]/g, '');
            datafactory.displayImage(imageURL)
              .then(function(imagedata) {
-               document.content.image = imagedata[0];
+               document.content.image = imagedata;
                vm.characters.push(document.content);
              });
-        })
-      });
+        });
 
       vm.debug = debugfactory;
     }

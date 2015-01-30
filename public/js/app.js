@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  
+
   angular
     .module('starwars', [
       'ngRoute',
@@ -17,7 +17,12 @@
       .when('/characters', {
         templateUrl: 'partials/characters',
         controller: 'Characters',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          characters: function(datafactory) {
+            return datafactory.getAllCharacters()
+          }
+        }
       })
       .when('/characters/add', {
         templateUrl: 'partials/add',
