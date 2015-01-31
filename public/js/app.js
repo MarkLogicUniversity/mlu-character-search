@@ -7,6 +7,27 @@
       'angularFileUpload'
     ])
     .config(config);
+    //.run(run);
+
+    config.$inject = ['$routeProvider'];
+    //run.$inject = ['$rootScope'];
+
+    // function run($rootScope) {
+    //   $rootScope.$on('$routeChangeStart', function(e, curr, prev) {
+    //     console.log(curr.$$route);
+    //     console.log(curr.$$route.resolve);
+    //     if (curr.$$route && curr.$$route.resolve && curr.$$route.controller === 'Characters') {
+    //       // Show a loading message until promises are not resolved
+    //       $rootScope.loadingView = true;
+    //     }
+    //   });
+    //
+    //   $rootScope.$on('$routeChangeSuccess', function(e, curr, prev) {
+    //     // Hide loading message
+    //     $rootScope.loadingView = false;
+    //   });
+    //
+    // }
 
     //routing configuration
     function config($routeProvider) {

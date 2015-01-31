@@ -11,11 +11,26 @@
 
 var marklogic  = require('marklogic');
 var connection = require('./settings').connection;
-var _          = require('lodash');
 var db         = marklogic.createDatabaseClient(connection);
 var qb         = marklogic.queryBuilder;
 var fs         = require('fs');
-var q = require('q');
+
+var getDocument = function(uri) {
+  return db.documents.read(uri).result()
+  .then(function(document) {
+    return document[0].content;
+  });
+};
+var getImage = function(document) {
+  return db.documents.read(document.binary).result()
+  .then(function(image) {
+    var imageData = new Buffer(image[0].content, 'binary').toString('base64');
+    document.image = imageData;
+    return document;
+  });
+};
+
+//getDocument('darthvader').then(getImage);
 
 var selectAll = function selectAll() {
   return db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result();
@@ -89,11 +104,28 @@ var partials = function partials(req, res) {
  * all api related routes have the 'api' prefix
  */
 var apicharacters = function apiindex(req, res) {
-  selectAll()
-  .then(function(data) {
-    res.json(data);
+  var results = [];
+  var counter = 0;
+  selectAll().then(function(documents) {
+    documents.forEach(function(document) {
+      getDocument(document.uri)
+      .then(getImage)
+      .then(function(data) {
+        counter++;
+        results.push(data);
+        if (counter === documents.length) {
+          res.json(results)
+        }
+      });
+    });
   });
 };
+
+// getDocument('/character/darthvader.json')
+// .then(getImage)
+// .then(function(data) {
+//   console.log(data);
+// })
 
 var apicharacter = function apicharacter(req, res) {
     var uri = req.params.name;

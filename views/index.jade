@@ -12,6 +12,8 @@ head
   body.ng-cloak
     include ./navbar.jade
     .container
+      //- div(ng-show='loadingView')
+      //-   p loading
       div(ng-view='ng-view')
       script(src='/vendor/jquery/dist/jquery.min.js')
       script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')

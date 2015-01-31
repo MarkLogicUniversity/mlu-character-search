@@ -23,16 +23,17 @@
         vm.search = [];
       }
 
-      // remember that data does not contain the image information
-        characters.forEach(function(document) {
-
-          var imageURL = document.content.name.toLowerCase().replace(/[ -]/g, '');
-           datafactory.displayImage(imageURL)
-             .then(function(imagedata) {
-               document.content.image = imagedata;
-               vm.characters.push(document.content);
-             });
-        });
+      vm.characters = characters;
+      // // remember that data does not contain the image information
+      //   characters.forEach(function(document) {
+      //
+      //     var imageURL = document.content.name.toLowerCase().replace(/[ -]/g, '');
+      //      datafactory.displayImage(imageURL)
+      //        .then(function(imagedata) {
+      //          document.content.image = imagedata;
+      //          vm.characters.push(document.content);
+      //        });
+      //   });
     }
 
 })();
