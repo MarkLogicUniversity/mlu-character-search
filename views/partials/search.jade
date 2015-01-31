@@ -10,7 +10,7 @@ form(role='form', ng-submit='vm.search()', name='searchForm')
 .results(ng-show='vm.results.length === 0 && searchForm.searchterm.$dirty && searchForm.$submitted')
   p No results
 .results(ng-show='vm.results.length !== 0 && searchForm.$submitted')
-  p {{ vm.results.length }} matches
+  p {{ vm.results.length }} {{ vm.results.length === 1 ? 'match' : 'matches' }}
   .row
     ul
       li(ng-repeat='character in vm.results') {{ character.content.name }} | 
