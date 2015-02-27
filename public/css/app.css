@@ -4,8 +4,13 @@
 .ng-cloak {
     display:none !important
 }
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
   padding-top: 50px;
+  padding-bottom: 50px
 }
 .starter-template {
     padding: 40px 15px;
@@ -33,4 +38,11 @@ body {
 }
 .spaced {
     margin: 0 5px 0 5px;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #eee;
 }
