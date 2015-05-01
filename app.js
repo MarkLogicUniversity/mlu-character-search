@@ -8,7 +8,6 @@ process.env.NODE_ENV = 'development';
 var express        = require('express');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
-var multer         = require('multer');
 var app            = express();
 var router         = express.Router();
 var routes         = require('./routes').app;
@@ -24,8 +23,6 @@ app.use('/components', express.static(__dirname + '/components'));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/vendor', express.static(__dirname + '/vendor'));
-// for file uploads
-app.use(multer({ dest: './uploads/'}))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({extended: true}));
 app.use(methodOverride());

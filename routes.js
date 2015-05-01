@@ -3,7 +3,7 @@
  *
  * The structure of this file is simple.
  *
- * First we get all the dependencies such as lodash and the marklogic node-client-api.
+ * First we get all the dependencies
  *
  * Then we have functions that select all documents, select one document or execute a search.
  */
@@ -13,7 +13,13 @@ var marklogic  = require('marklogic');
 var connection = require('./settings').connection;
 var db         = marklogic.createDatabaseClient(connection);
 var qb         = marklogic.queryBuilder;
-var fs         = require('fs');
+
+//getDocument('darthvader').then(getImage);
+// getDocument('/character/darthvader.json')
+// .then(getImage)
+// .then(function(data) {
+//   console.log(data);
+// })
 
 var getDocument = function(uri) {
   return db.documents.read(uri).result()
@@ -29,8 +35,6 @@ var getImage = function(document) {
     return document;
   });
 };
-
-//getDocument('darthvader').then(getImage);
 
 var selectAll = function selectAll() {
   return db.documents.query(qb.where(qb.collection('character')).slice(1, 100)).result();
@@ -56,26 +60,6 @@ var search = function search(key, term, callback) {
   }
 };
 
-var add = function add(document) {
-    var name = document.name.toLowerCase().replace(/[ -]/g, '');
-    return db.documents.write({
-        uri: '/character/' + name + '.json',
-        contentType: 'application/json',
-        content: document,
-        collections: 'character'
-    }).result();
-};
-
-var addImage = function addImage(image, callback) {
-    var uri = image.originalname;
-    return db.documents.write({
-        uri: '/image/' + uri,
-        contentType: 'image/png',
-        collections: 'image',
-        content: fs.readFileSync(image.path)
-    }).result();
-}
-
 var showImage = function showImage(uri) {
     return db.documents.read('/image/' + uri + '.png').result();
 }
@@ -88,7 +72,6 @@ var showImage = function showImage(uri) {
 var appindex = function appindex(req, res) {
     res.render('index');
 };
-
 
 /**
  * Displaying partials (template files)
@@ -121,12 +104,6 @@ var apicharacters = function apiindex(req, res) {
   });
 };
 
-// getDocument('/character/darthvader.json')
-// .then(getImage)
-// .then(function(data) {
-//   console.log(data);
-// })
-
 var apicharacter = function apicharacter(req, res) {
     var uri = req.params.name;
     selectOne(uri).then(function(document) {
@@ -139,20 +116,6 @@ var apisearch = function apisearch(req, res) {
     var term = req.params.term;
     search(key, term).then(function(documents) {
         res.json(documents);
-    });
-};
-
-var apiadd = function apiadd(req, res) {
-    add(req.body).then(function(data) {
-        res.json(200);
-    });
-};
-
-var apiaddimage = function apiaddimage(req, res) {
-    addImage(req.files.file).then(function(data) {
-      console.log(data);
-      //fs.unlinkSync(image.path);
-        res.json(200);
     });
 };
 
@@ -175,8 +138,6 @@ module.exports = {
         characters: apicharacters,
         character: apicharacter,
         search: apisearch,
-        add: apiadd,
-        addimage: apiaddimage,
         imagedata: apiimage
     }
 };
