@@ -8,7 +8,7 @@
     "express": "^4.8.5",
     "jade": "^1.5.0",
     "marklogic": "^1.0.1",
-    "method-override": "^2.1.3",
+    "method-override": "^2.1.3"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
