@@ -36,8 +36,6 @@ if (app.get('env') === 'development') {
  */
 router.route('/').get(routes.index);
 router.route('/api/characters').get(apiroutes.characters);
-router.route('/api/characters').post(apiroutes.add);
-router.route('/api/characters/image').post(apiroutes.addimage);
 router.route('/api/search/characters/:term').get(apiroutes.search);
 router.route('/api/search/characters/:key/:term').get(apiroutes.search);
 router.route('/api/images/characters/:id').get(apiroutes.imagedata);
