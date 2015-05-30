@@ -3,7 +3,7 @@
  * (We are using Express 4)
  */
 'use strict';
-#process.env.NODE_ENV = 'development';
+// process.env.NODE_ENV = 'development';
 
 var express        = require('express');
 var bodyParser     = require('body-parser');
