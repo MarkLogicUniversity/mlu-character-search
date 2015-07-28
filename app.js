@@ -35,10 +35,10 @@ if (app.get('env') === 'development') {
  * Route configuration
  */
 router.route('/').get(routes.index);
+router.route('/image/:uri').get(apiroutes.imagedata);
 router.route('/api/characters').get(apiroutes.characters);
 router.route('/api/search/characters/:term').get(apiroutes.search);
 router.route('/api/search/characters/:key/:term').get(apiroutes.search);
-router.route('/api/images/characters/:id').get(apiroutes.imagedata);
 router.route('/api/characters/:name').get(apiroutes.character);
 
 //route declaration for the partials

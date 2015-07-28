@@ -27,13 +27,21 @@ var getDocument = function(uri) {
     return document[0].content;
   });
 };
-var getImage = function(document) {
-  return db.documents.read(document.binary).result()
-  .then(function(image) {
-    var imageData = new Buffer(image[0].content, 'binary').toString('base64');
-    document.image = imageData;
-    return document;
-  });
+
+var getImage = function(uri, cb) {
+  var data = [];
+  var fbuf = [];
+  db.documents.read('/image/' + uri).stream('chunked').
+    on('data', function(chunk) {
+      data.push(chunk);
+      }).
+    on('error', function(error) {
+      console.log(JSON.stringify(error));
+      }).
+    on('end', function() {
+      fbuf = Buffer.concat(data);
+      cb(fbuf);
+    });
 };
 
 var selectAll = function selectAll() {
@@ -54,7 +62,7 @@ var search = function search(key, term, callback) {
   } else {
       return db.documents.query(
           qb.where(
-              qb.term(term)
+              qb.parsedFrom(term)
           )
       ).result();
   }
@@ -92,12 +100,11 @@ var apicharacters = function apiindex(req, res) {
   selectAll().then(function(documents) {
     documents.forEach(function(document) {
       getDocument(document.uri)
-      .then(getImage)
       .then(function(data) {
         counter++;
         results.push(data);
         if (counter === documents.length) {
-          res.json(results)
+          res.json(results);
         }
       });
     });
@@ -120,10 +127,11 @@ var apisearch = function apisearch(req, res) {
 };
 
 var apiimage = function(req, res) {
-    var id = req.params.id;
-    showImage(id).then(function(imageData) {
-      res.json(new Buffer(imageData[0].content, 'binary').toString('base64'));
-    });
+  var uri = req.params.uri;
+  res.writeHead(200, {'Content-Type': 'image/png'});
+  getImage(uri, function(fbuf) {
+    res.end(fbuf);
+  });
 };
 
 /**

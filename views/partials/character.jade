@@ -18,4 +18,4 @@
           strong Height: 
           | {{ vm.character.height }}
     .panel-body.col-sm-3.col-md-2.text-center
-      img(ng-src='data:image/png;base64,{{ vm.character.image }}', alt='{{ vm.character.name }}')
+      img(ng-src='{{ vm.character.binary }}', alt='{{ vm.character.name }}')

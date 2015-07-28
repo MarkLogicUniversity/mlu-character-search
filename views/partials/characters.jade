@@ -33,7 +33,8 @@ p(ng-if='vm.characters.length > 0')
 .row
   .col-sm-6.col-md-4.character(ng-repeat='character in filtered = (vm.characters | filter: vm.search | filter: {alliance: vm.alliance} | orderBy: vm.order.sortedBy:vm.order.reverse)')
     .thumbnail
-      img(ng-src='data:image/png;base64,{{ character.image }}', alt='{{ character.name }}')
+      p {{ character.binary }}
+      img(ng-src='{{ character.binary }}', alt='{{ character.name }}')
       .caption
         h3 {{ character.name }}
         p Role: {{ character.role}}
