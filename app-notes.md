@@ -59,5 +59,5 @@ The connection to MarkLogic is defined in `settings.js`. By default, the usernam
 
 * `data` folder - The character data and images for the application.
 * `ml-rest` folder - MarkLogic REST api to create and remove the application's App Server and Databases.
-* `public` folder
-* `views` folder
+* `public` folder - the CSS styles used in the HTML, Fonts for styles and the JavaScript files used with Angular. The `app.js` file in the `js` folder sets up Angular-specifics such as models, controllers and routes. AngularJS can be used in Single Page Applications (SPA) where it is desirable not to reload the entire web page when only part has changed.
+* `views` folder - The `pug` templates. Pug is a HTML templating engine, previously known as `jade`. The templates are rendered to HTML and returned as part of the response back from Node.js to the browser. 
