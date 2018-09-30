@@ -6,8 +6,8 @@
 var connection = {
 	host: 'localhost',
 	port: 5002,
-	user: 'admin',
-	password: 'admin'
+	user: 'adminuser',
+	password: 'adminpassword'
 };
 
 module.exports.connection = connection;

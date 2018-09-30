@@ -1,10 +1,11 @@
 {
     "rest-api":
     {
-        "name": "mlu-sw",
+        "name": "mlu-starwars",
         "group": "Default",
-        "database": "mlu-sw-content",
-        "modules-database": "mlu-sw-modules",
+        "database": "mlu-starwars-content",
+        "modules-database": "mlu-starwars-modules",
+        "forests-per-host": 1,
         "port": "5002"
     }
 }

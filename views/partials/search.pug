@@ -1,0 +1,17 @@
+h1 Search
+form(role='form', ng-submit='vm.search()', name='searchForm')
+  .form-group
+    label(for='searchterm') Search
+    input#searchterm.form-control(type='text', name='searchterm', placeholder='Enter search term', ng-model='vm.searchterm')
+  .form-group
+    label(for='type') Type
+    select#type.form-control(ng-model='vm.type', ng-options='type for type in vm.types')
+  button.btn.btn-default(type='submit') Search
+.results(ng-show='vm.results.length === 0 && searchForm.searchterm.$dirty && searchForm.$submitted')
+  p No results
+.results(ng-show='vm.results.length !== 0 && searchForm.$submitted')
+  p {{ vm.results.length }} {{ vm.results.length === 1 ? 'match' : 'matches' }}
+  .row
+    ul
+      li(ng-repeat='character in vm.results') {{ character.content.name }} |
+        a(href='#/characters/{{ character.content.name | convert }}') More info
