@@ -28,6 +28,8 @@ Before configuring the `mlu-character-search` application, ensure you have the f
 	* Install MarkLogic and start the MarkLogic service, <https://docs.marklogic.com/guide/installation/procedures>
 	* Initialize MarkLogic and create an Admin user account, <https://docs.marklogic.com/guide/installation/procedures#id_60220>
 
+> See `APP-NOTES.md` for additional information on the project, including required knowledge to make changes to the application.
+
 ## Configure the `mlu-character-search` application
 
 1. Clone or download the `mlu-character-search` application from MarkLogic University's GitHub repository, <https://github.com/MarkLogicUniversity/mlu-character-search> .
