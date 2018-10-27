@@ -73,7 +73,7 @@ var showImage = function showImage(uri) {
 }
 
 /**
- * These functions render the appropriate jade templates
+ * These functions render the appropriate pug templates
  * all application related routes have the 'app' prefix
  */
 
@@ -83,7 +83,7 @@ var appindex = function appindex(req, res) {
 
 /**
  * Displaying partials (template files)
- * We need to use dynamic routing to render the right jade template files
+ * We need to use dynamic routing to render the right pug template files
  */
 var partials = function partials(req, res) {
     var name = req.params.name;

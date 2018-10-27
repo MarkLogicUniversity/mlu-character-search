@@ -14,7 +14,7 @@ var routes         = require('./routes').app;
 var apiroutes      = require('./routes').api;
 
 app.set('port', 8080);
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 /**
  * these directory configurations are needed, with these we are
  * telling express to accept the content of these directories

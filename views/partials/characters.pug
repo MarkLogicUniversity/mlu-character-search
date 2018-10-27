@@ -1,7 +1,7 @@
 h1 Star Wars Characters
 p(ng-if='vm.characters.length === 0') No characters in the database.
-  a.btn.btn-primary.spaced(href='#/characters/add', role='button') 
-    | Add 
+  a.btn.btn-primary.spaced(href='#/characters/add', role='button')
+    | Add
     i.glyphicon(class='glyphicon-plus')
 p(ng-if='vm.characters.length > 0')
   | There are {{ vm.characters.length }} characters in the database.
@@ -16,14 +16,14 @@ p(ng-if='vm.characters.length > 0')
         select.form-control(ng-model='vm.option', ng-options='choice for choice in vm.choices', ng-change='reset()')
   .col-sm-4.col-md-4
     p
-      a.btn.btn-primary.spaced(href='#/characters/add', role='button') 
-        | Add 
-        i.glyphicon(class='glyphicon-plus') 
-      a.btn.btn-primary.spaced(ng-click='vm.order.sortedBy="name"; vm.order.reverse=!vm.order.reverse', role='button') 
-        | Name 
-        i.glyphicon(ng-class='vm.order.reverse && vm.order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"') 
-      a.btn.btn-primary.spaced(ng-click='vm.order.sortedBy="role"; vm.order.reverse=!vm.order.reverse', role='button') 
-        | Role 
+      a.btn.btn-primary.spaced(href='#/characters/add', role='button')
+        | Add
+        i.glyphicon(class='glyphicon-plus')
+      a.btn.btn-primary.spaced(ng-click='vm.order.sortedBy="name"; vm.order.reverse=!vm.order.reverse', role='button')
+        | Name
+        i.glyphicon(ng-class='vm.order.reverse && vm.order.sortedBy === "name"  ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
+      a.btn.btn-primary.spaced(ng-click='vm.order.sortedBy="role"; vm.order.reverse=!vm.order.reverse', role='button')
+        | Role
         i.glyphicon(ng-class='vm.order.reverse && vm.order.sortedBy === "role" ? "glyphicon-arrow-down" : "glyphicon-arrow-up"')
   .col-sm-4.col-md-4.text-right
     form.form-inline(role='form')
